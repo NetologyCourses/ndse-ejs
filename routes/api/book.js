@@ -1,19 +1,19 @@
-const express = require('express')
+const express = require("express")
 const router = express.Router()
-const { Book } = require('../../models/book')
-const { store } = require('../../store')
-const fileMiddleware = require('../../middleware/fileuploader')
-const { errorCreator } = require('../../helpers/helper')
+const { Book } = require("../../models/book")
+const { store } = require("../../store")
+const fileMiddleware = require("../../middleware/fileuploader")
+const { errorCreator } = require("../../helpers/helper")
 
 //BOOKS API
 
 // GET
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
     const { books } = store
     res.json(books)
 })
 
-router.get('/:id', (req, res) => {
+router.get("/:id", (req, res) => {
     const { books } = store
     const {id} = req.params
     const book = books.find((item) => item.id === id)
@@ -27,7 +27,7 @@ router.get('/:id', (req, res) => {
 })
 
 // POST
-router.post('/', (req, res) => {
+router.post("/", (req, res) => {
     const { books } = store
     const {
         title,
@@ -54,7 +54,7 @@ router.post('/', (req, res) => {
 })
 
 // PUT
-router.put('/:id', (req, res) => {
+router.put("/:id", (req, res) => {
     const { books } = store
     const { id } = req.params
     const {
@@ -86,13 +86,13 @@ router.put('/:id', (req, res) => {
 
 
 // DELETE
-router.delete('/:id', (req, res) => {
+router.delete("/:id", (req, res) => {
     const { books } = store
     const { id } = req.params
     const idx = books.findIndex((item) => item.id === id)
     if(idx !== -1) {
         books.splice(idx, 1)
-        res.json('ok')
+        res.json("ok")
     } else {
         res.status(404)
         res.json(errorCreator(404))
@@ -101,7 +101,7 @@ router.delete('/:id', (req, res) => {
 
 
 // UPLOAD-DOWNLOAD files
-router.post('/upload/:id', fileMiddleware.single('file'), (req, res) => {
+router.post("/upload/:id", fileMiddleware.single("file"), (req, res) => {
     const { books } = store
 
     if(!req.file) {
@@ -126,7 +126,7 @@ router.post('/upload/:id', fileMiddleware.single('file'), (req, res) => {
     res.json(path)
 })
 
-router.get('/download/:id', (req, res) => {
+router.get("/download/:id", (req, res) => {
     const { books } = store
     const { id } = req.params
     const idx = books.findIndex((item) => item.id === id)
@@ -134,7 +134,7 @@ router.get('/download/:id', (req, res) => {
     if(idx !== -1 && books[idx].fileBook) {
         res.download(__dirname+`/../${books[idx].fileBook}`, books[idx].fileBook, err=> {
             if (err){
-                res.json('cannot download')
+                res.json("cannot download")
             }
         })
     } else {

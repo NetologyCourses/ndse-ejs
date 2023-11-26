@@ -1,25 +1,25 @@
 const express = require('express')
 const router = express.Router()
-const { Book } = require('../models/book')
-const { store } = require('../store')
+const Book = require('../models/book')
+const { store } = require("../store")
 
 
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
     const {books} = store
-    res.render('books/index', {
-        title: 'Books',
+    res.render("books/index", {
+        title: "Books",
         books,
     })
 })
 
-router.get('/create', (req, res) => {
-    res.render('books/create', {
-        title: 'Book | create',
+router.get("/create", (req, res) => {
+    res.render("books/create", {
+        title: "Book | create",
         book: {},
     })
 })
 
-router.post('/create', (req, res) => {
+router.post("/create", (req, res) => {
     const {books} = store
     const {
         title,
@@ -43,40 +43,40 @@ router.post('/create', (req, res) => {
 
     books.push(newBook)
 
-    res.redirect('/books')
+    res.redirect("/books")
 })
 
-router.get('/:id', (req, res) => {
+router.get("/:id", (req, res) => {
     const {books} = store
     const {id} = req.params
     const idx = books.findIndex(el => el.id === id)
 
     if (idx !== -1) {
-        res.render('books/view', {
-            title: 'Book | view',
+        res.render("books/view", {
+            title: "Book | view",
             book: books[idx],
         })
     } else {
-        res.status(404).redirect('/404')
+        res.status(404).redirect("/404")
     }
 })
 
-router.get('/update/:id', (req, res) => {
+router.get("/update/:id", (req, res) => {
     const {books} = store
     const {id} = req.params
     const idx = books.findIndex(el => el.id === id)
 
     if (idx !== -1) {
-        res.render('books/update', {
-            title: 'Book | view',
+        res.render("books/update", {
+            title: "Book | view",
             book: books[idx],
         })
     } else {
-        res.status(404).redirect('/404')
+        res.status(404).redirect("/404")
     }
 })
 
-router.post('/update/:id', (req, res) => {
+router.post("/update/:id", (req, res) => {
     const { books } = store
     const { id } = req.params
     const {
@@ -102,11 +102,11 @@ router.post('/update/:id', (req, res) => {
         }
         res.redirect(`/books/${id}`)
     } else {
-        res.status(404).redirect('/404')
+        res.status(404).redirect("/404")
     }
 })
 
-router.post('/delete/:id', (req, res) => {
+router.post("/delete/:id", (req, res) => {
     const {books} = store
     const {id} = req.params
     const idx = books.findIndex(el => el.id === id)
@@ -115,7 +115,7 @@ router.post('/delete/:id', (req, res) => {
         books.splice(idx, 1)
         res.redirect(`/books`)
     } else {
-        res.status(404).redirect('/404')
+        res.status(404).redirect("/404")
     }
 })
 

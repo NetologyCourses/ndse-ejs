@@ -1,4 +1,4 @@
-const { Book } = require('../models/book')
+const Book = require('../models/book')
 
 const store = {
     testUser: { id: 1, mail: 'test@mail.ru' },

@@ -1,5 +1,5 @@
 function buildUrl(...urls) {
-    return urls.join('')
+    return urls.join("")
 }
 
 function errorCreator(code) {
