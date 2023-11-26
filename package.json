@@ -1,13 +1,13 @@
 {
   "name": "ndse-ejs",
   "version": "1.0.0",
-  "description": "",
+  "description": "EJS. Шаблонизаторы",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Moe Green",
   "license": "ISC",
   "dependencies": {
     "ejs": "^3.1.9",
